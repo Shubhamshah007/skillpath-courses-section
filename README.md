@@ -124,7 +124,7 @@ Two, as asked:
 | Control | Type | Why |
 | --- | --- | --- |
 | `title` | String | The section heading — the first thing anyone wants to reword |
-| `accentColor` | Color | Carried through one CSS custom property to the category pill, price accent, buttons and focus rings |
+| `accentColor` | Color | Carried through one CSS custom property (`--sp-accent`) to the category pill, the buttons, and the input focus rings |
 
 Defaults are set as default parameter values rather than `defaultProps`, which React 18.3
 deprecates for function components.
