@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "types": ["node"],
+    "paths": {
+      // Mirrors the Vite alias so the editor and tsc resolve "framer" the same way the
+      // preview build does. Framer itself provides the real module.
+      "framer": ["./preview/framer-shim.ts"]
+    }
+  },
+  "include": ["src", "preview", "vite.config.ts"]
+}
