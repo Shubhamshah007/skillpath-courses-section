@@ -3,7 +3,7 @@ dist/
 .DS_Store
 *.local
 
-# Submission paperwork — added once finalised
+# Submission paperwork — kept out of the repo
 NOTES.md
-SUBMISSION.md
+SUBMISSION.*
 AI-CHAT.md

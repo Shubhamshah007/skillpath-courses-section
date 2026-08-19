@@ -219,56 +219,100 @@ const CSS = `
   font-family: inherit;
   color: #18181b;
 }
-.sp-heading { font-size: 28px; font-weight: 600; margin: 0 0 20px; letter-spacing: -0.01em; }
-.sp-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+/* Wrapper keeps the gap below the header the same whether or not the count line
+   is showing, so the layout does not shift when the data arrives. */
+.sp-header { margin-bottom: 28px; }
+.sp-heading {
+  font-size: 32px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.025em;
+}
+.sp-subheading { font-size: 15px; color: #71717a; margin: 0; }
+
+.sp-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
 .sp-search, .sp-sort {
   font: inherit; font-size: 14px; color: #18181b; background: #fff;
-  border: 1px solid #e4e4e7; border-radius: 8px; padding: 10px 12px;
+  border: 1px solid #e4e4e7; border-radius: 10px; padding: 11px 14px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
-.sp-search { flex: 1 1 220px; min-width: 0; }
+.sp-search { flex: 1 1 240px; min-width: 0; }
+.sp-sort { cursor: pointer; }
 .sp-search:focus-visible, .sp-sort:focus-visible {
-  outline: 2px solid var(--sp-accent); outline-offset: 1px;
+  outline: none; border-color: var(--sp-accent);
+  /* Soft ring instead of a hard outline — reads as a focus state, not an error. */
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sp-accent) 18%, transparent);
 }
+
 .sp-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 @container (min-width: 640px) { .sp-grid { grid-template-columns: repeat(2, 1fr); } }
 @container (min-width: 960px) { .sp-grid { grid-template-columns: repeat(3, 1fr); } }
+
 .sp-card {
-  display: flex; flex-direction: column; gap: 10px;
+  display: flex; flex-direction: column; gap: 12px;
   min-width: 0; /* lets a grid item shrink instead of overflowing its column */
-  padding: 20px; background: #fff;
-  border: 1px solid #e4e4e7; border-radius: 14px;
+  padding: 24px; background: #fff;
+  border: 1px solid #ececef; border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(16, 16, 20, 0.04);
+  transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease;
 }
+.sp-card:hover {
+  border-color: #e0e0e6;
+  box-shadow: 0 6px 20px rgba(16, 16, 20, 0.07);
+  transform: translateY(-2px);
+}
+
 .sp-badges { display: flex; flex-wrap: wrap; gap: 6px; }
-.sp-pill {
-  font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px;
-  color: var(--sp-accent); background: color-mix(in srgb, var(--sp-accent) 10%, transparent);
+.sp-pill, .sp-refundable {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.01em;
+  padding: 5px 10px; border-radius: 6px;
 }
-.sp-refundable { font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px;
-  color: #15803d; background: #f0fdf4; }
-.sp-name { font-size: 17px; font-weight: 600; margin: 0; overflow-wrap: anywhere; }
+.sp-pill {
+  color: var(--sp-accent); background: color-mix(in srgb, var(--sp-accent) 9%, transparent);
+}
+.sp-refundable { color: #15803d; background: #f0fdf4; }
+
+.sp-name {
+  font-size: 18px; font-weight: 600; line-height: 1.35; margin: 0;
+  letter-spacing: -0.015em; overflow-wrap: anywhere;
+}
 .sp-description {
-  font-size: 14px; line-height: 1.5; color: #52525b; margin: 0;
+  font-size: 14px; line-height: 1.6; color: #71717a; margin: 0;
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
   overflow: hidden; overflow-wrap: anywhere;
 }
 /* Pushes the price to the bottom so cards with shorter text still line up. */
-.sp-price { margin-top: auto; padding-top: 6px; font-size: 20px; font-weight: 600; }
-.sp-message { padding: 32px 20px; text-align: center; border: 1px solid #e4e4e7;
-  border-radius: 14px; background: #fafafa; color: #52525b; font-size: 15px; }
+.sp-price {
+  margin-top: auto; padding-top: 14px; border-top: 1px solid #f4f4f5;
+  font-size: 20px; font-weight: 600; letter-spacing: -0.02em;
+  /* Equal-width digits, so prices line up column to column. */
+  font-variant-numeric: tabular-nums;
+}
+
+.sp-message {
+  padding: 48px 24px; text-align: center; border: 1px dashed #e4e4e7;
+  border-radius: 16px; background: #fcfcfd; color: #71717a; font-size: 15px;
+}
 .sp-notice {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-  margin-bottom: 20px; padding: 12px 14px; border-radius: 10px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  margin-bottom: 24px; padding: 14px 16px; border-radius: 12px;
   background: #fffbeb; border: 1px solid #fde68a; color: #854d0e; font-size: 14px;
 }
 .sp-button {
   font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
-  padding: 9px 16px; border-radius: 8px; border: none;
+  padding: 10px 18px; border-radius: 10px; border: none;
   color: #fff; background: var(--sp-accent);
+  transition: opacity 150ms ease;
 }
-.sp-button:hover { opacity: 0.9; }
-.sp-skeleton-line { border-radius: 6px; background: #ececef; animation: sp-pulse 1.4s ease-in-out infinite; }
-@keyframes sp-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.45 } }
-@media (prefers-reduced-motion: reduce) { .sp-skeleton-line { animation: none } }
+.sp-button:hover { opacity: 0.88; }
+
+.sp-skeleton-line {
+  border-radius: 6px; background: #eeeef1;
+  animation: sp-pulse 1.5s ease-in-out infinite;
+}
+@keyframes sp-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.5 } }
+@media (prefers-reduced-motion: reduce) {
+  .sp-skeleton-line { animation: none }
+  .sp-card { transition: none }
+  .sp-card:hover { transform: none }
+}
 `
 
 /* ------------------------------------------------------------------ */
@@ -369,7 +413,14 @@ export default function CoursesSection({
     <section className="sp-root" style={rootStyle}>
       <style>{CSS}</style>
 
-      <h2 className="sp-heading">{title}</h2>
+      <header className="sp-header">
+        <h2 className="sp-heading">{title}</h2>
+        {status === "ready" && courses.length > 0 && (
+          <p className="sp-subheading">
+            {visible.length} {visible.length === 1 ? "course" : "courses"}
+          </p>
+        )}
+      </header>
 
       {status === "ready" && country === null && (
         <div className="sp-notice">
